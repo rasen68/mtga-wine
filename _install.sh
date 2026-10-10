@@ -6,7 +6,7 @@ if ! [ -d wine-11.17-staging-tkg-amd64 ]; then
 fi
 
 SCRIPTDIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
-WINEBIN="$SCRIPTDIR/winebin"
+WINEBIN="$SCRIPTDIR/_mtga-wine"
 if ! [ -d "$SCRIPTDIR/.wine" ]; then
 	"$WINEBIN" winecfg
 fi
