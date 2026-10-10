@@ -15,4 +15,3 @@ MSI_URL=`curl https://mtgarena.downloads.wizards.com/Live/Windows32/version | jq
 curl $MSI_URL --output installer.msi
 
 "$WINEBIN" wine installer.msi
-rm -f installer.msi
