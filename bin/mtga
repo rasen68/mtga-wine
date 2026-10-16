@@ -1,0 +1,16 @@
+#!/bin/bash
+MTGADIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." &>/dev/null && pwd)"
+WINEBIN="$MTGADIR/bin/_mtga-wine"
+
+if [[ "$1" == "update" ]]; then
+	MSI_URL="$( curl https://mtgarena.downloads.wizards.com/Live/Windows32/version | jq -r .CurrentInstallerURL )"
+	curl -fL "$MSI_URL" --output "$MTGADIR/installer.msi" && "$WINEBIN"
+	"$WINEBIN" wine "$MTGADIR"/installer.msi
+
+elif [[ -n "$1" ]]; then
+	echo "mtga: unknown command $1" >&2
+
+else
+	MTGA="$MTGADIR/.wine/dosdevices/c:/Program Files (x86)/Wizards of the Coast/MTGA/MTGA.exe"
+	"$WINEBIN" wine "$MTGA" -screen-fullscreen 0 '&'
+fi

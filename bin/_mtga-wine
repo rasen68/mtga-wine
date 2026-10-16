@@ -1,6 +1,6 @@
 #!/bin/bash
 # Need to run our wine with a custom prefix to not break system wine
-SCRIPTDIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
-export WINEPREFIX="$SCRIPTDIR/.wine"
+MTGADIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." &>/dev/null && pwd)"
+export WINEPREFIX="$MTGADIR/.wine"
 WINEBIN="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)/wine-11.17-staging-tkg-amd64/bin/"
 "$WINEBIN"/"$@"
