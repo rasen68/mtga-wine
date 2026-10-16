@@ -1,13 +1,16 @@
 #!/bin/bash
-MTGADIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." &>/dev/null && pwd)"
+
+set -euo pipefail
+
+MTGADIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." &>/dev/null && pwd)" || exit 1
 WINEBIN="$MTGADIR/bin/_mtga-wine"
 
-if [[ "$1" == "update" ]]; then
+if [[ "${1:-}" == "update" ]]; then
 	MSI_URL="$( curl https://mtgarena.downloads.wizards.com/Live/Windows32/version | jq -r .CurrentInstallerURL )"
-	curl -fL "$MSI_URL" --output "$MTGADIR/installer.msi" && "$WINEBIN"
+	curl -fL "$MSI_URL" --output "$MTGADIR/installer.msi"
 	"$WINEBIN" wine "$MTGADIR"/installer.msi
 
-elif [[ -n "$1" ]]; then
+elif [[ -n "${1:-}" ]]; then
 	echo "mtga: unknown command $1" >&2
 
 else
